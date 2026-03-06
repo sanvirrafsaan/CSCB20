@@ -1,0 +1,117 @@
+<!doctype html>
+
+
+</html>
+<html>
+    <head>
+        <title>First Web Page</title>
+        <!-- for CSS, you specify below that you're importing the stylesheet, then put name-->
+        <link rel="stylesheet" href="style.css">
+
+
+        <!-- to add css code in the html file, you can use the <style> tag-->
+        <!-- specify selector- define where to apply style such as element tag, id, class, then
+         property and 
+         then value-->
+        <style>
+            h2{
+                color: orange;
+                background-color: blue;
+            }
+            #special {
+                color: brown;
+            }
+            p.brown {background-color: brown;}
+        </style>
+    </head>
+
+    <!-- ________________________________________________________________________________________ -->
+
+    <body>
+        This is the <br> page content.
+        
+        <h1>Heading 1</h1>
+        <h2>Heading 2</h2>
+        <h3 id="special">Heading 3</h3>
+        <h4>Heading 4</h4>
+        <h5>Heading 5</h5>
+        <h6>Heading 6</h6>
+
+        <!-- Below, I wrote a CSS atttribute inline instead of having a separate CSS file-->
+        <p style="color: rgb(255, 0, 204); background-color: orange;">Paragraph</p>
+        
+        <hr>
+        
+        <b>bold</b>
+        <strong>strong</strong>
+        <i>italic</i>
+        <em>emphasize</em>
+        <small>small</small>
+        <sub>subscript</sub>
+        <sup>superscipt</sup>
+        <ins>inserted</ins>
+        <del>deleted</del>
+        <mark>marked</mark>
+        
+        <hr>
+
+
+        <a href="https:/www.google.com">This is a link</a>
+        <!-- If you just put www.google.com, then it will be a relative link, and it will not work. -->
+        <!-- You need to put https://www.google.com to make it an absolute link. -->
+         <!-- You need to specify what protocol to use to go to the web. the internet protocol is http -->
+
+
+         <!-- Adding lists in HTML -->
+         <ol> 
+            <li>List item 1
+            <li>List item 2
+            <li>List item 3
+        </ol>
+        
+        <ul>
+            <li>List item 4
+            <li>List item 5
+        </ul>
+
+
+
+        <!-- Adding tables in HTML -->
+        <table>
+            <tr>
+            <td> cell 1 </td>
+            <td> cell 2 </td>
+            <td> cell 3 </td>
+            </tr>
+        </table>
+    
+        <table>
+            <tr>
+            <td> cell 1 </td>
+            <td> cell 2 </td>
+            <td> cell 3 </td>
+            </tr>
+        </table>
+
+
+        <!-- Adding images in HTML -->
+         <a href = "http://www.google.com"> 
+         <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png", width = 200px>
+         </a>
+
+         <pre>
+            <!-- Within this tag, you can add text that is formatted in the webpage exactly how you write it in code--->
+         hasbdsabd
+
+         asjnsadasndjn
+        </pre>
+
+
+        <h2> New Heading 2 </h2>
+        <!-- note that below, you have 2 classes. The space acts as a separator-->
+        <p class="brown-bg class2"> New Paragraph </p>
+
+
+        <a href="#special"> Go to Heading 3</a>
+    </body>
+</html>
