@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head>
+    <title>Schedule</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body data-mode="{{ 'view' if has_voted else 'vote' }}">
+    <main class="page">
+        <section class="card schedule-card">
+            <div class="top-bar">
+                <div>
+                    <h1>{{ event_title }}</h1>
+                    <p class="subtitle">Logged in as <strong>{{ username }}</strong></p>
+                </div>
+
+                <form method="post" action="{{ url_for('logout') }}">
+                    <button type="submit" class="secondary-btn">Logout</button>
+                </form>
+            </div>
+
+            {% if not has_voted %}
+                <p class="info-text">Click cells to choose your available time slots.</p>
+
+                <form method="post" id="vote-form">
+                    <input type="hidden" name="slots" id="slots-input" value="" />
+
+                    <table class="schedule-table vote-table" id="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                {% for day in days %}
+                                    <th>{{ day }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for hour in hours %}
+                                <tr>
+                                    <th>{{ hour }}:00 - {{ hour + 1 }}:00</th>
+                                    {% for day in days %}
+                                        <td class="slot-cell clickable"
+                                            data-day="{{ day }}"
+                                            data-hour="{{ hour }}">
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="button-row">
+                        <button type="button" id="reset-btn" class="secondary-btn">Reset</button>
+                        <button type="submit">Submit Vote</button>
+                    </div>
+                </form>
+            {% else %}
+                <p class="info-text">
+                    Your vote has been submitted. Hover over a slot to see who voted for it.
+                </p>
+
+                <table class="schedule-table view-table" id="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            {% for day in days %}
+                                <th>{{ day }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hour in hours %}
+                            <tr>
+                                <th>{{ hour }}:00 - {{ hour + 1 }}:00</th>
+                                {% for day in days %}
+                                    {% set key = (day, hour) %}
+                                    {% set count = counts.get(key, 0) %}
+                                    {% set names = voter_names.get(key, []) %}
+                                    {% set is_user_selected = key in user_votes %}
+
+                                    {% if max_count > 0 %}
+                                        {% set ratio = count / max_count %}
+                                    {% else %}
+                                        {% set ratio = 0 %}
+                                    {% endif %}
+
+                                    {% if count == 0 %}
+                                        {% set shade_class = "shade-0" %}
+                                    {% elif ratio <= 0.34 %}
+                                        {% set shade_class = "shade-1" %}
+                                    {% elif ratio <= 0.67 %}
+                                        {% set shade_class = "shade-2" %}
+                                    {% else %}
+                                        {% set shade_class = "shade-3" %}
+                                    {% endif %}
+
+                                    <td class="slot-cell {{ shade_class }} {% if is_user_selected %}selected-view{% endif %}"
+                                        data-day="{{ day }}"
+                                        data-hour="{{ hour }}"
+                                        data-voters="{{ names | join(', ') }}"
+                                        data-count="{{ count }}">
+                                        {% if is_user_selected %}
+                                            ✓
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div id="tooltip" class="tooltip hidden"></div>
+
+                <div class="button-row">
+                    <form method="post" action="{{ url_for('revote') }}">
+                        <button type="submit" class="secondary-btn">Reset Vote</button>
+                    </form>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
