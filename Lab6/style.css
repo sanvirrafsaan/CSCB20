@@ -7,7 +7,7 @@
   font-size: 24px;
 }
 
-/* Flexbox layout on the container */
+/* Flex container layout on the container */
 .layout-flex {
   display: flex;
   flex-wrap: wrap;
@@ -15,12 +15,12 @@
   background-color: dodgerblue;
 }
 
+/* Grid container layout on the container */
 .layout-grid {
     display: grid;
     gap: 10px;
 }
 
-/* Different flex-grow for each item */
 #item-1 { flex-grow: 1; }
 #item-2 { flex-grow: 1; }
 #item-3 { flex-grow: 3; }
